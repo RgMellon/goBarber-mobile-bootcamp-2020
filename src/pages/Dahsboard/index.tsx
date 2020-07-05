@@ -59,7 +59,8 @@ const Dahsboard: React.FC = () => {
     <Container>
       <Header>
         <HeaderTitle>
-          Bem vindo, {'\n'}
+          Bem vindo,
+          {'\n'}
           <UserName>{user.name}</UserName>
         </HeaderTitle>
         <ProfileButton onPress={navigateToProfile}>
@@ -86,7 +87,7 @@ const Dahsboard: React.FC = () => {
             <ProviderAvatar source={{ uri: provider.avatar_url }} />
 
             <ProviderInfo>
-              <ProviderName> {provider.name} </ProviderName>
+              <ProviderName>{provider.name}</ProviderName>
 
               <ProviderMeta>
                 <Icon name="calendar" size={14} color="#ff9000" />
