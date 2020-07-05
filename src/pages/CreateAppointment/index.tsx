@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { format } from 'date-fns';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -33,6 +33,8 @@ import {
   SectionContent,
   Hour,
   HourText,
+  CreaAppointmentButton,
+  CreateAppointmentButtonText,
 } from './styles';
 
 interface RouteParams {
@@ -68,7 +70,7 @@ const CreateAppointment: React.FC = () => {
     });
   }, []);
 
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
 
   const navigateBack = useCallback(() => {
     goBack();
@@ -115,6 +117,28 @@ const CreateAppointment: React.FC = () => {
   const handleSelectHour = useCallback((hour: number) => {
     setSelectedHour(hour);
   }, []);
+
+  const handleCreateAppointment = useCallback(async () => {
+    try {
+      const date = new Date(selectedDate);
+      date.setHours(selectedHour);
+      date.setMinutes(0);
+
+      await api.post('appointments', {
+        provider_id: selectedProvider,
+        date,
+      });
+
+      navigate('AppointmentCreated', {
+        date: date.getTime(),
+      });
+    } catch (err) {
+      Alert.alert(
+        'Erro ao criar agendamento',
+        'Ops, ocorreu um erro ao criar um agendamento',
+      );
+    }
+  }, [navigate, selectedDate, selectedHour, selectedProvider]);
 
   useEffect(() => {
     api
@@ -226,6 +250,10 @@ const CreateAppointment: React.FC = () => {
             </SectionContent>
           </Section>
         </Schedule>
+
+        <CreaAppointmentButton onPress={handleCreateAppointment}>
+          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+        </CreaAppointmentButton>
       </Content>
     </Container>
   );
