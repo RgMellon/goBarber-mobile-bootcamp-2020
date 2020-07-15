@@ -35,7 +35,7 @@ export const ProfileButton = styled.TouchableOpacity`
   border-radius: 28px;
   width: 56px;
   height: 56px;
-  border: 1px solid #d6d6d6;
+  /* border: 1px solid #d6d6d6; */
 `;
 
 export const UserAvatar = styled.Image`

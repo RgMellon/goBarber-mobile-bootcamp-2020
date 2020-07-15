@@ -42,12 +42,13 @@ const Dahsboard: React.FC = () => {
   }, []);
 
   const navigateToProfile = useCallback(() => {
-    signOut();
-    // navigate('Profile');
-  }, [signOut]);
+    // signOut();
+    navigate('Profile');
+  }, [navigate]);
 
   const navigateToCreateAppointment = useCallback(
     (providerId: string) => {
+      console.log(providerId);
       navigate('CreateAppointment', {
         providerId,
       });
@@ -67,7 +68,6 @@ const Dahsboard: React.FC = () => {
           <UserAvatar
             source={{
               uri:
-                user.avatar_url ||
                 'https://avatars1.githubusercontent.com/u/45109055?s=460&u=a805db8a36cf89a37524b3c8acfdf5278268aeaf&v=4',
             }}
           />
